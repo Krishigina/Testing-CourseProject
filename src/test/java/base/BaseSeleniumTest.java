@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 abstract public class BaseSeleniumTest {
 
     public static WebDriver driver;
-    private static final Logger logger = LoggerFactory.getLogger(BaseSeleniumTest.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseSeleniumTest.class);
 
     @BeforeEach
     public void setUp(){

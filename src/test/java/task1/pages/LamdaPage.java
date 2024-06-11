@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 public class LamdaPage extends BaseSeleniumPage {
-    private final WebDriverWait wait;
     private static final Logger logger = LoggerFactory.getLogger(LamdaPage.class);
 
     // Locators for page elements
@@ -36,22 +35,15 @@ public class LamdaPage extends BaseSeleniumPage {
         driver.get("https://lambdatest.github.io/sample-todo-app/");
         PageFactory.initElements(driver, this);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
     }
 
     private WebElement waitForElement(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    private void logAndClick(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-        logger.info("Clicked on element: {}", element);
-    }
-
     public String getHeaderText() {
-        WebElement headerElement = waitForElement(By.xpath("//h2"));
-        wait.until(ExpectedConditions.visibilityOf(headerElement));
-        return headerElement.getText();
+        wait.until(ExpectedConditions.visibilityOf(header));
+        return header.getText();
     }
 
     public boolean isRemainingTextPresent() {
