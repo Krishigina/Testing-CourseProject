@@ -25,8 +25,8 @@ abstract public class BaseSeleniumTest {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             logger.info("Driver setup completed");
-            driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             BaseSeleniumPage.setDriver(driver);
 
         } catch (Exception e) {
