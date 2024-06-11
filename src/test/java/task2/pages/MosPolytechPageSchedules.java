@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
@@ -22,10 +23,11 @@ public class MosPolytechPageSchedules extends BaseSeleniumPage {
     private WebElement searchGroupField;
 
     @FindBy(xpath = "//div[contains(@class, 'found-groups')]")
-    private List<WebElement> groupsList;
+    private WebElement groupsList;
 
-    @FindBy(xpath = "//div[contains(@class, 'schedule-day_today')]/div[contains(@class, 'title')]")
-    private WebElement dayToday;
+    @FindBy(xpath = "//div[starts-with(@class,'schedule-day')]")
+    private List<WebElement> weekDays;
+
 
     public MosPolytechPageSchedules() {
         PageFactory.initElements(driver, this);
@@ -40,14 +42,16 @@ public class MosPolytechPageSchedules extends BaseSeleniumPage {
 
     public boolean isGroupInSearchResults(String groupNumber) {
         wait.until(ExpectedConditions.visibilityOfAllElements(groupsList));
-        if (groupsList.size() != 1) {
-            return false;
+        List<WebElement> webElements = groupsList.findElements(By.tagName("div"));
+        if (webElements.size() == 1 && webElements.get(0).getText().equals(groupNumber)) {
+            return true;
         }
-        return groupsList.get(0).getText().contains(groupNumber);
+        else
+            return false;
     }
 
     public void clickOnSearchResult() {
-        wait.until(ExpectedConditions.elementToBeClickable(groupsList.get(0))).click();
+        groupsList.findElements(By.tagName("div")).get(0).click();
         logger.info("Clicked on search result");
     }
 

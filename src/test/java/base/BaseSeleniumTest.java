@@ -28,7 +28,7 @@ abstract public class BaseSeleniumTest {
             driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             BaseSeleniumPage.setDriver(driver);
-            driver = new EventFiringDecorator(new AllureEventListener()).decorate(driver);
+
         } catch (Exception e) {
             logger.error("Error during driver setup", e);
             throw new RuntimeException(e);

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.List;
 
 public class LamdaPage extends BaseSeleniumPage {
     private static final Logger logger = LoggerFactory.getLogger(LamdaPage.class);
@@ -22,8 +23,8 @@ public class LamdaPage extends BaseSeleniumPage {
     @FindBy(xpath = "//span[@class='ng-binding'][contains(text(), '5 of 5 remaining')]")
     private WebElement remainingText;
 
-    @FindBy(xpath = "//li[1]//input[@type='checkbox']")
-    private WebElement firstCheckbox;
+    @FindBy(xpath = "//li")
+    private List<WebElement> todoItems;
 
     @FindBy(id = "sampletodotext")
     private WebElement newTodoInput;
@@ -34,7 +35,6 @@ public class LamdaPage extends BaseSeleniumPage {
     public LamdaPage() {
         driver.get("https://lambdatest.github.io/sample-todo-app/");
         PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     private WebElement waitForElement(By locator) {
@@ -52,21 +52,35 @@ public class LamdaPage extends BaseSeleniumPage {
     }
 
     public boolean isFirstItemNotChecked() {
+        return isItemNotChecked(1);
+    }
+
+    public boolean isItemNotChecked(int itemIndex) {
         try {
-            WebElement firstItemSpan = waitForElement(By.xpath("//li[1]//span"));
-            String spanClass = firstItemSpan.getAttribute("class");
+            WebElement itemCheckbox = todoItems.get(itemIndex - 1).findElement(By.xpath(".//input[@type='checkbox']"));
+            WebElement itemSpan = todoItems.get(itemIndex - 1).findElement(By.xpath(".//span"));
+            String spanClass = itemSpan.getAttribute("class");
             boolean isNotChecked = spanClass.contains("done-false");
-            logger.info("First item span class: {}", spanClass);
-            logger.info("First item span class contains 'done-false': {}", isNotChecked);
+            logger.info("Item {} span class: {}", itemIndex, spanClass);
+            logger.info("Item {} span class contains 'done-false': {}", itemIndex, isNotChecked);
             return isNotChecked;
         } catch (Exception e) {
-            logger.error("Failed to verify if the first item is not checked", e);
+            logger.error("Failed to verify if item {} is not checked", itemIndex, e);
             return false;
         }
     }
 
     public void checkFirstItem() {
-        logAndClick(firstCheckbox);
+        checkItem(1);
+    }
+
+    public void checkItem(int itemIndex) {
+        try {
+            WebElement itemCheckbox = todoItems.get(itemIndex - 1).findElement(By.xpath(".//input[@type='checkbox']"));
+            logAndClick(itemCheckbox);
+        } catch (Exception e) {
+            logger.error("Failed to check item {}", itemIndex, e);
+        }
     }
 
     public void addNewTodoItem(String todoText) {
@@ -84,4 +98,27 @@ public class LamdaPage extends BaseSeleniumPage {
             return false;
         }
     }
-}
+
+    public void checkTodoItem(String todoText) {
+        try {
+            WebElement itemCheckbox = waitForElement(By.xpath("//li[span[text()='" + todoText + "']]//input[@type='checkbox']"));
+            logAndClick(itemCheckbox);
+        } catch (Exception e) {
+            logger.error("Failed to check todo item '{}'", todoText, e);
+        }
+    }
+
+    public boolean isTodoItemChecked(String todoText) {
+        try {
+            WebElement itemSpan = waitForElement(By.xpath("//li[span[text()='" + todoText + "']]//span"));
+            String spanClass = itemSpan.getAttribute("class");
+            boolean isChecked = spanClass.contains("done-true");
+            logger.info("Todo item '{}' span class: {}", todoText, spanClass);
+            logger.info("Todo item '{}' span class contains 'done-true': {}", todoText, isChecked);
+            return isChecked;
+        } catch (Exception e) {
+            logger.error("Failed to verify if todo item '{}' is checked", todoText, e);
+            return false;
+        }
+    }
+    }

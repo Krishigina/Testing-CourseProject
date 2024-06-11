@@ -17,7 +17,7 @@ import task2.pages.MosPolytechPage;
 import task2.pages.MosPolytechPageSchedules;
 
 @ExtendWith(TestListener.class)
-@Feature("LambdaTest Application Tests")
+@Feature("MosPolytech Application Tests")
 public class MosPolytechTests extends BaseSeleniumTest {
     private static final Logger logger = LoggerFactory.getLogger(MosPolytechTests.class);
     private MosPolytechPage mosPolytechPage;
@@ -31,11 +31,11 @@ public class MosPolytechTests extends BaseSeleniumTest {
     }
 
     @Test
-    @DisplayName("Open Schedule Page and Initialize")
-    @Story("Open Schedule Page")
-    @Description("This test opens the schedule page from the Mospolytech website.")
-    public void openSchedulePageAndInitialize() {
-        logger.info("Starting test: openSchedulePageAndInitialize");
+    @DisplayName("Test for MosPolytech website")
+    @Story("Complete workflow for MosPolytech website")
+    @Description("This test performs a series of checks and actions on the MosPolytech website.")
+    public void fullTest() {
+        logger.info("Starting test for MosPolytech website");
 
         Allure.step("Click on the 'Расписание' button", mosPolytechPage::openSchedule);
         Allure.step("Scroll and click on the 'Смотрите на сайте' link", mosPolytechPage::clickViewOnSiteLink);
@@ -43,16 +43,6 @@ public class MosPolytechTests extends BaseSeleniumTest {
             mosPolytechPageSchedules = new MosPolytechPageSchedules();
             mosPolytechPageSchedules.switchToNewWindow();
         });
-    }
-
-    @Test
-    @DisplayName("Search for Group and Verify Result")
-    @Story("Search Group")
-    @Description("This test searches for a specific group and verifies the result.")
-    public void searchForGroupAndVerifyResult() {
-        logger.info("Starting test: searchForGroupAndVerifyResult");
-
-        openSchedulePageAndInitialize();
 
         Allure.step("Enter group number in search field", () -> {
             mosPolytechPageSchedules.enterGroupNumber("221-361");
@@ -64,16 +54,6 @@ public class MosPolytechTests extends BaseSeleniumTest {
         });
 
         Allure.step("Click on the group in search results", mosPolytechPageSchedules::clickOnSearchResult);
-    }
-
-    @Test
-    @DisplayName("Verify Current Day Highlighted")
-    @Story("Verify Current Day")
-    @Description("This test verifies that the current day is highlighted in the schedule.")
-    public void verifyCurrentDayHighlighted() {
-        logger.info("Starting test: verifyCurrentDayHighlighted");
-
-        searchForGroupAndVerifyResult();
 
         Allure.step("Verify current day is highlighted", () -> {
             boolean isCurrentDayHighlighted = mosPolytechPageSchedules.isCurrentDayHighlighted();

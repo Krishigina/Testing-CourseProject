@@ -14,7 +14,6 @@ import java.time.Duration;
 public class MosPolytechPage extends BaseSeleniumPage {
 
     private static final Logger logger = LoggerFactory.getLogger(MosPolytechPage.class);
-    private WebDriverWait wait;
 
     @FindBy(xpath = "//a[@title='Расписание']")
     private WebElement scheduleButton;
@@ -25,7 +24,6 @@ public class MosPolytechPage extends BaseSeleniumPage {
     public MosPolytechPage() {
         driver.get("https://mospolytech.ru/");
         PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void openSchedule() {
