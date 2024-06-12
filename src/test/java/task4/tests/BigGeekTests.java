@@ -17,7 +17,7 @@ import task4.pages.BigGeekPage;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(TestListener.class)
-@Feature("BigGeek Search Tests")
+@Feature("BigGeek Tests")
 public class BigGeekTests extends BaseSeleniumTest {
 
     private BigGeekPage bigGeekPage;
@@ -31,8 +31,8 @@ public class BigGeekTests extends BaseSeleniumTest {
     }
 
     @Test
-    @DisplayName("Test for Search BigGeek")
-    @Story("Complete workflow for Search BigGeek")
+    @DisplayName("Test for Search site BigGeek")
+    @Story("Complete workflow for Search site BigGeek")
     @Description("This test performs a series of checks and actions on the search functions site BigGeek")
     public void searchTest() {
         String searchQuerry = "Смартфон Apple iPhone 14 128 ГБ (Синий | Blue)";
@@ -53,7 +53,7 @@ public class BigGeekTests extends BaseSeleniumTest {
     }
 
     @Test
-    @DisplayName("Test for filtering products by price")
+    @DisplayName("Test for filtering products by price site BigGeek")
     @Story("Filter products by price")
     @Description("This test verifies the filtering functionality of products by price on BigGeek")
     public void priceFilterTest() {
@@ -83,9 +83,9 @@ public class BigGeekTests extends BaseSeleniumTest {
     }
 
     @Test
-    @DisplayName("Test for Search BigGeek")
-    @Story("Complete workflow for Search BigGeek")
-    @Description("This test performs a series of checks and actions on the search functions site BigGeek")
+    @DisplayName("Test for add to cart function site BigGeek")
+    @Story("Complete workflow for add to cart function site BigGeek")
+    @Description("This test performs a series of checks and actions on the search function site BigGeek")
 
     public void addToCartTest() {
         String searchQuery = "телевизор";
@@ -96,6 +96,7 @@ public class BigGeekTests extends BaseSeleniumTest {
         Allure.step("Enter search query in search field and click search button", () -> {
             bigGeekPage.enterSearchQuery(searchQuery);
             bigGeekPage.clickSearch();
+            Thread.sleep(3000);
         });
 
         String selectedProductName = Allure.step("Add the first product to the cart", () -> {
