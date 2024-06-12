@@ -1,5 +1,6 @@
 package base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,7 @@ abstract public class BaseSeleniumPage {
     private static final Logger logger = LoggerFactory.getLogger(BaseSeleniumPage.class);
 
     public BaseSeleniumPage() {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public static void setDriver(WebDriver webDriver){
@@ -43,6 +44,11 @@ abstract public class BaseSeleniumPage {
                 break;
             }
         }
+    }
+
+    public void scrollDown(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0," + pixels + ")");
     }
 
 }

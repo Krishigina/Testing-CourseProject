@@ -21,10 +21,10 @@ public class YandexMarketPage extends BaseSeleniumPage {
     @FindBy(xpath = "//button[.//span[text()='Каталог']]")
     private WebElement catalogButton;
 
-    @FindBy(xpath = "//a[@class='_3yHCR' and .//span[text()='Ноутбуки и компьютеры']]")
+    @FindBy(xpath = "//a[.//span[text()='Ноутбуки и компьютеры']]")
     private WebElement laptopsAndComputersCategory;
 
-    @FindBy(xpath = "//li//a[@class='_2re3U ltlqD _2TBT0' and text()='Ноутбуки']")
+    @FindBy(xpath = "//li//a[text()='Ноутбуки']")
     private WebElement laptopsCategory;
 
     @FindBy(xpath = "//div[@data-apiary-widget-name='@light/Organic']")

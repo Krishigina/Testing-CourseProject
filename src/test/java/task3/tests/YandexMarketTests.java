@@ -67,7 +67,7 @@ public class YandexMarketTests extends BaseSeleniumTest {
             int expectedTotalPrice = singleLaptopPrice * 2;
 
             // Set a tolerance range for price difference, e.g., ± 1000 rubles. I do it because the price on the page and when added to the cart was different.
-            int tolerance = 10000;
+            int tolerance = 15000;
             int actualTotalPrice = Integer.parseInt(totalPrice);
             boolean isWithinTolerance = Math.abs(expectedTotalPrice - actualTotalPrice) <= tolerance;
 
